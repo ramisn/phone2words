@@ -1,5 +1,3 @@
-require 'set'
-
 $number_map = {
   2 => %w(a b c),
   3 => %w(d e f),
@@ -11,10 +9,11 @@ $number_map = {
   9 => %w(w x y z)
 }
 
-$dictionary = Set.new File.readlines('dictionary.txt').map{|w| w.strip}
+$dictionary = File.readlines('dictionary.txt').map{|w| w.strip}
 
 def word_exists(word)
-  $dictionary.include?(word.upcase)
+  w = $dictionary.bsearch{|x| x>= word.upcase }
+  w == word.upcase
 end
 
 def phone2word(phone)
@@ -33,9 +32,8 @@ def phone2word(phone)
   test_words
 end
 
-#todo: make combinations of returned words
-def phone2words(initial_phone)
-  last = initial_phone.clone
+def phone2words(phone)
+  last = phone
   first = ''
   all_words = []
   while last.length>3 do
