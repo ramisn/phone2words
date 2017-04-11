@@ -9,19 +9,20 @@ $number_map = {
   9 => %w(w x y z)
 }
 
-$dictionary = File.readlines('words.txt').map{|w| w.strip}
+$dictionary = File.readlines('dictionary.txt').map{|w| w.strip}
 
 def word_exists(word)
-  $dictionary.index(word)
+  $dictionary.index(word.upcase)
 end
 
-# Return array of first possible words and rest of phone string
-def first_words(phone)
+#todo: make combinations of returned words
+def phone2words(initial_phone)
+  phone = initial_phone.clone
   num = ''
+  all_words = []
   while phone!='' do
     num = num + phone.slice!(0)
     next if num.length < 3
-    p num
     combinations = nil
     num.each_char do |num_char|
       codes = $number_map[num_char.to_i]
@@ -34,12 +35,17 @@ def first_words(phone)
     end
     test_words = combinations.map { |e| e.flatten().join}
     words = test_words.select! { |w| word_exists(w) }
-    #p "words #{words}"
-    #break
-    return words, phone
+    if words.length>0
+      if phone.length>0
+        last_words = phone2words(phone)
+        return [words]+[last_words] if last_words.length>0
+      else
+        return [words]
+      end
+    end
   end
+  []
 end
 
-p first_words('6686787825')
-#p phone2words(6686787825)
+p phone2words('2282668687')
 
