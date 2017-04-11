@@ -1,3 +1,5 @@
+require 'set'
+
 $number_map = {
   2 => %w(a b c),
   3 => %w(d e f),
@@ -9,7 +11,7 @@ $number_map = {
   9 => %w(w x y z)
 }
 
-$dictionary = File.readlines('dictionary.txt').map{|w| w.strip}
+$dictionary = Set.new File.readlines('dictionary.txt').map{|w| w.strip}
 
 def word_exists(word)
   $dictionary.include?(word.upcase)
