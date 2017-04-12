@@ -1,4 +1,6 @@
+# Can be easily converted to class
 module PhoneConverter
+
   @@number_map = {
     2 => %w(a b c),
     3 => %w(d e f),
@@ -12,12 +14,14 @@ module PhoneConverter
 
   @@dictionary = File.readlines('dictionary.txt').map{|w| w.strip}
 
+  # Check if word eixsts in the dictionary
   def self.word_exists(word)
     uword = word.upcase
     w = @@dictionary.bsearch{|x| x>= uword }
     w == uword
   end
 
+  # Convert phone to array of words. The element will be a whole word
   def self.phone2word(phone)
     combinations = nil
     phone.each_char do |num_char|
@@ -34,8 +38,9 @@ module PhoneConverter
     test_words
   end
 
+  # Convert phone to array of elements. The element can be one word or word pair
   def self.phone2words(phone)
-    last = phone
+    last = phone.dup
     first = ''
     full_phone_words = phone2word(phone)
     all_words = full_phone_words

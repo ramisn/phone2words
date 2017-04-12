@@ -1,5 +1,2 @@
-require_relative 'phone_converter'
-
-p PhoneConverter.phone2words('2282668687')
-
-
+require_relative 'lib/phone_converter'
+p PhoneConverter.phone2words(ARGV[0])

@@ -24,4 +24,6 @@ To get give you an initial verifiation, the following must be true:
 
 The conversion of a 10 digit phone number should be performed within 1000ms.
 
-For tests: bundle exec rspec phone_converter_tests.rb
+
+Usage: bundle exec ruby phone2words.rb 6686787825
+Running tests: bundle exec rspec phone_converter_tests.rb

@@ -1,4 +1,4 @@
-require_relative 'phone_converter'
+require_relative '../lib/phone_converter'
 require 'rspec'
 
 
