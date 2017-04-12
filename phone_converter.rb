@@ -35,20 +35,23 @@ module PhoneConverter
   end
 
   def self.phone2words(phone)
-    last = phone.clone
+    last = phone
     first = ''
-    all_words = []
+    full_phone_words = phone2word(phone)
+    all_words = full_phone_words
     while last.length>3 do
-      first = first + last.slice!(0)
+      first += last.slice!(0)
       next if first.length < 3
       first_words = phone2word(first)
       last_words = phone2word(last)
-      if first_words.length>0 && last_words.length>0
+
+      if first_words.length>0 && last_words.length>0 #&& !full_phone_words.include?(first_words+last_words)
         combinations = first_words.product(last_words)
-        all_words = all_words + combinations
+        all_words += combinations
       end
+      # remove full_phone_words from all_words pairs
+      all_words.select!{|e| !full_phone_words.include?(e[0]+e[1]) }
     end
-    all_words = all_words + phone2word(phone)
     all_words
   end
 
